@@ -1,0 +1,6 @@
+target
+.idea
+.micronaut
+*.iml
+docker-compose.yml
+README.md
