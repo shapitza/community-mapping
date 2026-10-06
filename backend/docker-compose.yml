@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: community_map
+      POSTGRES_USER: community_map
+      POSTGRES_PASSWORD: community_map
+    ports:
+      - "5433:5432"
+    volumes:
+      - community_map_pgdata:/var/lib/postgresql/data
+
+volumes:
+  community_map_pgdata:

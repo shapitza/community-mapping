@@ -1,0 +1,24 @@
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Environment files (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# Backend (Maven / Micronaut)
+backend/target/
+backend/.micronaut/
+backend/out/
+backend/build/
+
+# Frontend (Vite)
+frontend/node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo
