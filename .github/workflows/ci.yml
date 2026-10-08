@@ -37,7 +37,41 @@ jobs:
           distribution: temurin
           java-version: '25'
           cache: maven
-      - run: ./mvnw -B verify
+      - name: Build and test
+        run: |
+          set -o pipefail
+          ./mvnw -B verify 2>&1 | tee build.log
+      - name: Report compiler errors
+        if: failure()
+        run: |
+          # Show compiler and Maven errors as annotations on the run.
+          grep -E '^\[ERROR\] .*\.java:\[[0-9]+' build.log | head -30 | while IFS= read -r line; do
+            echo "::error title=Compilation::${line#\[ERROR\] }"
+          done || true
+      - name: Report test results
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import glob, xml.etree.ElementTree as ET
+
+          def esc(text):
+              return text.replace('%', '%25').replace('\r', '').replace('\n', '%0A')
+
+          total = failed = 0
+          for path in sorted(glob.glob('target/surefire-reports/TEST-*.xml')):
+              suite = ET.parse(path).getroot()
+              tests = int(suite.get('tests', 0))
+              bad = int(suite.get('failures', 0)) + int(suite.get('errors', 0))
+              total += tests
+              failed += bad
+              for case in suite.iter('testcase'):
+                  for kind in ('failure', 'error'):
+                      problem = case.find(kind)
+                      if problem is not None:
+                          message = (problem.get('message') or problem.text or '')[:2000]
+                          print(f"::error title={case.get('classname')}.{case.get('name')}::{esc(message)}")
+          print(f"::notice title=Backend tests::{total} tests, {failed} failed")
+          PY
       - name: Upload test reports
         if: failure()
         uses: actions/upload-artifact@v4
