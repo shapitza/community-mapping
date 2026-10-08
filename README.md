@@ -7,7 +7,7 @@ their community: risks, assets, ideas and anything else they define.
 | ----------- | ----------------------------------------------------------------- |
 | `backend/`  | REST API — Micronaut 5, Java 25, PostgreSQL, Flyway               |
 | `frontend/` | Web app — React 19, TypeScript, Vite, MUI 9, Leaflet/OpenStreetMap |
-| `docs/`     | Deployment guide                                                  |
+| `docs/`     | Deployment guide and backend architecture                         |
 
 ## Run locally
 

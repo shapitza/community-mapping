@@ -27,14 +27,18 @@ All settings have local defaults and can be overridden with environment variable
 
 ## Layout
 
+The code is organised by business component, each split into `boundary`,
+`control` and `entity`. See [docs/architecture.md](../docs/architecture.md)
+for the rules and where new code goes.
+
 ```
 src/main/java/com/communitymap/
-  controller/   HTTP endpoints
-  service/      business logic
-  repository/   Micronaut Data repositories
-  domain/       entities and enums
-  dto/          request bodies
+  organizations/ identity/ members/ maps/ categories/ places/ activity/ platform/
+    boundary/   HTTP endpoints and request records
+    control/    business logic and repositories
+    entity/     domain objects
 src/main/resources/db/migration/   Flyway migrations
+src/test/java/.../ArchitectureTest  checks the layer rules on every build
 ```
 
 ## Endpoints
