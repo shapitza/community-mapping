@@ -1,7 +1,7 @@
 # Community Mapping
 
 A platform where organizations keep shared maps of the places that matter to
-their community: risks, assets, ideas and anything else they define.
+their community: risks, assets, ideas or anything else they define.
 
 | Folder      | What it is                                                        |
 | ----------- | ----------------------------------------------------------------- |
